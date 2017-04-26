@@ -7,6 +7,7 @@ namespace Cosmos.System.FileSystem.FAT.Listing
         public const int System = 0x04;
         public const int VolumeID = 0x08;
         public const int Directory = 0x10;
+        public const int File = 0x80;
         public const int Archive = 0x20;
         public const int UnusedOrDeletedEntry = 0xE5;
         // LongName was created after and is a combination of other attribs. Its "special".
