@@ -199,8 +199,7 @@ namespace Cosmos.System.Plugs.System
 
         public static bool get_KeyAvailable()
         {
-            WriteLine("Not implemented: get_KeyAvailable");
-            return false;
+            return KeyboardManager.KeyAvailable;
         }
 
         public static int get_LargestWindowHeight()
@@ -403,8 +402,18 @@ namespace Cosmos.System.Plugs.System
             {
                 Write(key.KeyChar);
             }
-            // todo: add support for modifiers (ctrl, alt, etc)
-            return new ConsoleKeyInfo(key.KeyChar, key.Key.ToConsoleKey(), false, false, false);
+
+            //TODO: Plug HasFlag and use the next 3 lines instead of the 3 following lines
+
+            //bool shift = key.Modifiers.HasFlag(ConsoleModifiers.Shift);
+            //bool alt = key.Modifiers.HasFlag(ConsoleModifiers.Alt);
+            //bool control = key.Modifiers.HasFlag(ConsoleModifiers.Control);
+
+            bool shift = (key.Modifiers & ConsoleModifiers.Shift) == ConsoleModifiers.Shift;
+            bool alt = (key.Modifiers & ConsoleModifiers.Alt) == ConsoleModifiers.Alt;
+            bool control = (key.Modifiers & ConsoleModifiers.Control) == ConsoleModifiers.Control;
+
+            return new ConsoleKeyInfo(key.KeyChar, key.Key.ToConsoleKey(), shift, alt, control);
         }
 
         public static String ReadLine()
